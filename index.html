@@ -1,0 +1,62 @@
+<html>
+
+<head>
+    <title>My First PHP Page</title>
+</head>
+
+<body>
+
+    <!-- A pure HTML text area with prompt id  -->
+    <textarea id="prompt" rows="1" cols="50"></textarea>
+    <!-- A pure HTML button with send id with send text and send function -->
+    <button id="send" onclick="send()">Send</button>
+    <!-- a pure HTML image with output id  -->
+    <img id="output" src="">
+
+    <!-- A pure HTML script tag -->
+    <script>
+        let YOUR_API_KEY = "sk-YOUR-KEY";
+        // a function to send the prompt value to the server using fetch
+        function send() {
+            console.log("Sent")
+            // get the prompt value
+            var prompt = document.getElementById("prompt").value;
+            // change the send button text to sending
+            document.getElementById("send").innerHTML = "Sending";
+            // disable the send button
+            document.getElementById("send").disabled = true;
+            // send the prompt value to the server using fetch
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("Authorization", "Bearer " + YOUR_API_KEY);
+
+            var raw = JSON.stringify({
+                "prompt": prompt,
+                "n": 1,
+                "size": "1024x1024"
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("https://api.openai.com/v1/images/generations", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    document.getElementById("output").src = result.data[0].url;
+                    // change send text to send
+                    document.getElementById("send").innerHTML = "Send";
+                    document.getElementById("send").disabled = false;
+
+                })
+                .catch(error => console.log('error', error));
+        }
+    </script>
+
+
+</body>
+
+</html>
