@@ -2,15 +2,16 @@
 
 <head>
     <title>My First OpenAI - Project</title>
+    <!-- add style file-->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!-- create div with chatlogs id= chatlogs -->
-    <div id="chatlogs">
+   <div class="container">
+     <!-- create div with chatlogs id= chatlogs -->
+     <div id="chatlogs">
         <!-- create label for chatlogs -->
         <label for="chatlogs">Chatlogs:</label>
-        <!-- create div to hold chatlogs -->
-        <div id="chatlogs"></div>
         <!-- add div with class= user -->
         <div class="user">
             <!-- add div with class= user -->
@@ -27,10 +28,13 @@
         <input type="radio" id="image" name="type" value="image" onclick="activate(1)">
         <label for="image">Image</label>
     </div>
+    <div class="ChatSend">
+        
  <!-- textarea for prompt -->
  <textarea id="prompt" rows="1" cols="50"></textarea>
  <!-- send button for chat -->
  <button id="send" onclick="send()">Send</button>
+    </div>
 
     <div id="images_container" style="display: none;">    
         <!-- text area for numbers with minimum 1 -->
@@ -48,6 +52,7 @@
             <img id="output2" src="">
         </div>
     </div>
+   </div>
 
         <script src="environment.js"></script>
         <script src="script.js"></script>
