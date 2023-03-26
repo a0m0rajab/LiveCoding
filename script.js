@@ -1,42 +1,3 @@
-  // sendChat function to get the text from the chat and show a random answer on the answer div
-  function sendChat() {
-    // get the question div
-    var question = document.getElementById("question");
-    // get the answer div
-    var answer = document.getElementById("answer");
-    // get the chat value
-    var chat = document.getElementById("chatPrompt").value;
-    // show the chat value on the question 
-    question.innerHTML = chat;    
-    // send a request to openAI api using the completion endpoint
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", "Bearer " + api_key);
-
-    var raw = JSON.stringify({
-        "prompt": chat,
-        "model": 'text-davinci-003',
-        "n": 2,
-    });
-
-    var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
-    };
-    answer.innerHTML = "generating the answer..."
-
-    fetch("https://api.openai.com/v1/completions", requestOptions)
-        .then(response => response.json())
-        .then(result => {
-            answer.innerHTML = result.choices[0].text
-        })
-        .catch(error => console.log('error', error));
-
-    
-               
-}
 // activate function for the radio buttons
 function activate(index) {
     // get the images container
@@ -56,30 +17,44 @@ function activate(index) {
         chat_container.style.display = "none";
     }
 }
-let YOUR_API_KEY = "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";
 // a function to send the prompt value to the server using fetch
 function send() {
-    console.log("Sent")
-    // get the prompt value
+    console.log("Sending...")
+    // get the images container
+    var images_container = document.getElementById("images_container");
+    // get the chat container
+    var chatInput = document.querySelector("input#chat").checked;
     var prompt = document.getElementById("prompt").value;
-    // get the number value from the input
+    let url = '', raw;
+    if (chatInput){
+        url = "https://api.openai.com/v1/completions";
+        raw = JSON.stringify({
+            "prompt": prompt,
+            "model": 'text-davinci-003',
+            "n": 2,
+        });
+    }else{
+         // get the number value from the input
     var number = document.getElementById("number").value;
     // get the size value from the input 
     var size = document.getElementById("size").value;
-    // change the send button text to sending
-    document.getElementById("send").innerHTML = "Sending";
+  
+        url = "https://api.openai.com/v1/images/generations";
+        raw = JSON.stringify({
+            "prompt": prompt,
+            "n": parseInt(number),
+            "size": size
+        });
+    }
+    // get the prompt value
+     // change the send button text to sending
+    document.getElementById("send").innerHTML = "Sending..";
     // disable the send button
     document.getElementById("send").disabled = true;
-    // send the prompt value to the server using fetch
+    // send chat: 
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", "Bearer " + YOUR_API_KEY);
-
-    var raw = JSON.stringify({
-        "prompt": prompt,
-        "n": parseInt(number),
-        "size": size
-    });
+    myHeaders.append("Authorization", "Bearer " + api_key);
 
     var requestOptions = {
         method: 'POST',
@@ -87,12 +62,17 @@ function send() {
         body: raw,
         redirect: 'follow'
     };
-
-    fetch("https://api.openai.com/v1/images/generations", requestOptions)
+    let chatLogs = document.getElementById("chatlogs");
+    fetch(url, requestOptions)
         .then(response => response.json())
         .then(result => {
+            if (chatInput){
+                // append inner html to chatlogs 
+                chatLogs.innerHTML += `<div class="user">User: ${prompt}</div>`
+                chatLogs.innerHTML += `<div class="chatGPT">ChatGPT: ${result.choices[0].text}</div>`
+            }else {
             // clear the images div
-            document.getElementById("images").innerHTML = "";
+            chatLogs.innerHTML += `<div class="chatGPT">Dall-E: </div>`;
             // loop through the result data
             for (var i = 0; i < result.data.length; i++) {
                 // create a new image
@@ -100,12 +80,11 @@ function send() {
                 // set the image source to the result data url
                 img.src = result.data[i].url;
                 // append the image to the images div
-                document.getElementById("images").appendChild(img);
+                chatLogs.appendChild(img);
             }
-            // change send text to send
+            }
             document.getElementById("send").innerHTML = "Send";
             document.getElementById("send").disabled = false;
-
         })
         .catch(error => console.log('error', error));
 }

@@ -5,6 +5,20 @@
 </head>
 
 <body>
+    <!-- create div with chatlogs id= chatlogs -->
+    <div id="chatlogs">
+        <!-- create label for chatlogs -->
+        <label for="chatlogs">Chatlogs:</label>
+        <!-- create div to hold chatlogs -->
+        <div id="chatlogs"></div>
+        <!-- add div with class= user -->
+        <div class="user">
+            <!-- add div with class= user -->
+            <div class="user">User:Hey.</div>
+             <!-- add div with class= user -->
+             <div class="chatGPT">chatGPT:How can I assist you?</div>
+        </div>  
+    </div>
     <!-- controllers div tag -->
     <div>
         <!-- radio button to choose either chat or image connected to activate function -->
@@ -13,10 +27,12 @@
         <input type="radio" id="image" name="type" value="image" onclick="activate(1)">
         <label for="image">Image</label>
     </div>
+ <!-- textarea for prompt -->
+ <textarea id="prompt" rows="1" cols="50"></textarea>
+ <!-- send button for chat -->
+ <button id="send" onclick="send()">Send</button>
 
-    <div id="images_container" style="display: none;">
-        <!-- A pure HTML text area with prompt id  -->
-        <textarea id="prompt" rows="1" cols="50"></textarea>
+    <div id="images_container" style="display: none;">    
         <!-- text area for numbers with minimum 1 -->
         <input type="number" id="number" min="1" value="1">
         <!-- select menu for three values which is 256, 512, and 1024  -->
@@ -25,8 +41,6 @@
             <option value="512x512">512</option>
             <option value="1024x1024">1024</option>
         </select>
-        <!-- A pure HTML button with send id with send text and send function -->
-        <button id="send" onclick="send()">Send</button>
         <!-- create a div to hold images -->
         <div id="images">
             <!-- a pure HTML image with output id  -->
@@ -35,23 +49,6 @@
         </div>
     </div>
 
-    <div id="chat_container">
-        <!-- textarea for prompt -->
-        <textarea id="chatPrompt" rows="1" cols="50"></textarea>
-        <!-- send button for chat -->
-        <button id="sendChat" onclick="sendChat()">Send</button>
-        <!-- div to hold chat -->
-        <div id="chat">
-            <!-- label for the answers -->
-            <label for="question">Question:</label>
-            <!-- create div to hold the answers -->
-            <div id="question"></div>
-            <!-- label for the answers -->
-            <label for="answer">Answer:</label>
-            <!-- create div to hold the answers -->
-            <div id="answer"></div>
-        </div>
-        
         <script src="environment.js"></script>
         <script src="script.js"></script>
 </body>
