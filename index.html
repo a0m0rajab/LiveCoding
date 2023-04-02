@@ -10,32 +10,30 @@
    <div class="container">
      <!-- create div with chatlogs id= chatlogs -->
      <div id="chatlogs">
-        <!-- create label for chatlogs -->
-        <label for="chatlogs">Chatlogs:</label>
         <!-- add div with class= user -->
-        <div class="user">
-            <!-- add div with class= user -->
-            <div class="user">User:Hey.</div>
-             <!-- add div with class= user -->
-             <div class="chatGPT">chatGPT:How can I assist you?</div>
-        </div>  
+         <div class="user">User:Hey.</div>
+         <!-- add div with class= user -->
+         <div class="chatGPT">chatGPT:How can I assist you?</div>
     </div>
-    <!-- controllers div tag -->
-    <div>
-        <!-- radio button to choose either chat or image connected to activate function -->
-        <input type="radio" id="chat" name="type" value="chat" checked onclick="activate(0)">
-        <label for="chat">Chat</label>
-        <input type="radio" id="image" name="type" value="image" onclick="activate(1)">
-        <label for="image">Image</label>
-    </div>
+    <div class="messageArea">
+       
+  
     <div class="ChatSend">
         
  <!-- textarea for prompt -->
  <textarea id="prompt" rows="1" cols="50"></textarea>
  <!-- send button for chat -->
- <button id="send" onclick="send()">Send</button>
+ <button id="send" onclick="send()">
+    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-1" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+</button>
     </div>
-
+ <!-- controllers div tag -->
+ <div class="options_messages">
+    <!-- radio button to choose either chat or image connected to activate function -->
+    <input type="radio" id="chat" name="type" value="chat" checked onclick="activate(0)">
+    <label for="chat">Chat</label>
+    <input type="radio" id="image" name="type" value="image" onclick="activate(1)">
+    <label for="image">Image</label>
     <div id="images_container" style="display: none;">    
         <!-- text area for numbers with minimum 1 -->
         <input type="number" id="number" min="1" value="1">
@@ -51,6 +49,12 @@
             <img id="output" src="">
             <img id="output2" src="">
         </div>
+    </div>
+</div>
+<div class="openAiMessage">
+    ChatGPT Mar 14 Version. Free Research Preview. Our goal is to make AI systems more natural and safe to interact with. Your feedback will help us improve.
+</div>
+ 
     </div>
    </div>
 
