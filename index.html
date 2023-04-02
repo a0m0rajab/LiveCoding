@@ -28,7 +28,7 @@
 </button>
     </div>
  <!-- controllers div tag -->
- <div class="options_messages">
+ <div class="options_messages openAiMessage">
     <!-- radio button to choose either chat or image connected to activate function -->
     <input type="radio" id="chat" name="type" value="chat" checked onclick="activate(0)">
     <label for="chat">Chat</label>
@@ -43,12 +43,7 @@
             <option value="512x512">512</option>
             <option value="1024x1024">1024</option>
         </select>
-        <!-- create a div to hold images -->
-        <div id="images">
-            <!-- a pure HTML image with output id  -->
-            <img id="output" src="">
-            <img id="output2" src="">
-        </div>
+
     </div>
 </div>
 <div class="openAiMessage">
